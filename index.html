@@ -1,30 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard của Đạt</title>
-</head>
-<body>
-    <div id="xp-container" style="width: 100%; max-width: 400px; font-family: sans-serif; margin: 50px auto;">
-        <h2 style="text-align: center;">Hành trình của Đạt</h2>
-        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold;">
-            <span id="cefr-level">Level: A2</span>
-            <span id="xp-text">Đang tải...</span>
-        </div>
-        <div style="background: #e2e8f0; height: 20px; border-radius: 10px; border: 1px solid #cbd5e1;">
-            <div id="xp-bar" style="background: linear-gradient(90deg, #f59e0b, #fbbf24); width: 0%; height: 100%; border-radius: 8px; transition: width 1s;"></div>
-        </div>
+<div id="xp-container" style="width: 100%; max-width: 400px; font-family: 'Segoe UI', sans-serif; margin: 20px auto; padding: 20px; background: #fff; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: #475569;">
+        <span id="cefr-level">Level: A2</span>
+        <span id="xp-text">Đang tải...</span>
     </div>
+    
+    <div style="background: #e2e8f0; height: 25px; border-radius: 12px; position: relative; border: 2px solid #cbd5e1;">
+        <div id="xp-bar" style="background: linear-gradient(90deg, #f59e0b, #fbbf24); width: 0%; height: 100%; border-radius: 10px; transition: width 1s;"></div>
+        
+        <div class="milestone" style="left: 33%; border-left: 3px solid #ef4444;"></div>
+        <div class="milestone" style="left: 66%; border-left: 3px solid #ef4444;"></div>
+        <div class="milestone" style="left: 100%; border-left: 3px solid #ef4444;"></div>
+    </div>
+    <p style="font-size: 0.8rem; color: #64748b; margin-top: 10px; text-align: center;">🚩 Đạt mốc đỏ để mở khóa bài kiểm tra!</p>
+</div>
 
-    <script>
-        const url = "https://script.google.com/macros/s/AKfycbxjzpK2FTdMmVIWCdSS8ZwbuKmWBgyoFG1JVkXmsjDO7ujCxqqmsHM4pHPm2DWvoJc7/exec?page=xp";
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                document.getElementById('xp-text').innerText = `${data.score} / 1500 XP`;
-                document.getElementById('xp-bar').style.width = Math.min((data.score / 1500) * 100, 100) + "%";
-                if(data.score >= 1500) document.getElementById('cefr-level').innerText = "Level: B1";
-            });
-    </script>
-</body>
-</html>
+<style>
+    .milestone { position: absolute; top: 0; height: 100%; z-index: 2; }
+</style>
+
+<script>
+    const url = "URL_CỦA_BẠN_Ở_ĐÂY";
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            const currentXP = data.score;
+            const targetXP = 1500;
+            const percent = Math.min((currentXP / targetXP) * 100, 100);
+            
+            document.getElementById('xp-text').innerText = `${currentXP} / ${targetXP} XP`;
+            document.getElementById('xp-bar').style.width = percent + "%";
+            
+            // Logic cảnh báo Milestone
+            if (currentXP >= 500 && currentXP < 1000) {
+                document.getElementById('cefr-level').innerText = "Level: A2 (Checkpoint 1 Ready!)";
+            } else if (currentXP >= 1000) {
+                document.getElementById('cefr-level').innerText = "Level: A2 (Checkpoint 2 Ready!)";
+            }
+        });
+</script>
