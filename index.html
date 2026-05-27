@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard của Đạt</title>
+</head>
+<body>
+    <div id="xp-container" style="width: 100%; max-width: 400px; font-family: sans-serif; margin: 50px auto;">
+        <h2 style="text-align: center;">Hành trình của Đạt</h2>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold;">
+            <span id="cefr-level">Level: A2</span>
+            <span id="xp-text">Đang tải...</span>
+        </div>
+        <div style="background: #e2e8f0; height: 20px; border-radius: 10px; border: 1px solid #cbd5e1;">
+            <div id="xp-bar" style="background: linear-gradient(90deg, #f59e0b, #fbbf24); width: 0%; height: 100%; border-radius: 8px; transition: width 1s;"></div>
+        </div>
+    </div>
+
+    <script>
+        const url = "https://script.google.com/macros/s/AKfycbxjzpK2FTdMmVIWCdSS8ZwbuKmWBgyoFG1JVkXmsjDO7ujCxqqmsHM4pHPm2DWvoJc7/exec?page=xp";
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('xp-text').innerText = `${data.score} / 1500 XP`;
+                document.getElementById('xp-bar').style.width = Math.min((data.score / 1500) * 100, 100) + "%";
+                if(data.score >= 1500) document.getElementById('cefr-level').innerText = "Level: B1";
+            });
+    </script>
+</body>
+</html>
