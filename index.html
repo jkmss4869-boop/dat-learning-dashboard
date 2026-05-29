@@ -89,7 +89,7 @@
         .then(data => {
             // CẤU HÌNH ĐIỂM TỐI ĐA CHO TỪNG KỸ NĂNG (Tùy chỉnh theo ý bạn)
             const targets = {
-                total: 100,
+                total: 500,
                 listening: 500,
                 reading: 500,
                 writing: 500,
@@ -130,9 +130,9 @@
             updateBar('vocab', currentScores.vocabulary, targets.vocabulary);
 
             // Logic cảnh báo Milestone cho điểm tổng
-            if (currentScores.total >= 33 && currentScores.total < 66) {
+            if (currentScores.total >= 166 && currentScores.total < 322) {
                 document.getElementById('cefr-level').innerText = "🏆 Level A2 (Checkpoint 1 Ready!)";
-            } else if (currentScores.total >= 100) {
+            } else if (currentScores.total >= 322) {
                 document.getElementById('cefr-level').innerText = "🏆 Level A2 (Checkpoint 2 Ready!)";
             }
         })
